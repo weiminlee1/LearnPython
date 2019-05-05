@@ -2,8 +2,8 @@
 
 # 1.分词
 import jieba
-with open('report19.txt') as f:
-    s = f.read()
+with open('report19.txt',encoding='utf-8') as f: ##当乱码时，选择编码方式
+    s = f.read() ##把这个文件内容储存为一个字符串，readlines()则每行储存为列表中的一个元素，readline()每次只读取一行
 word_list = list(jieba.cut(s))
 print('分词总数:', len(word_list))
 print('示例:', word_list[:20])
