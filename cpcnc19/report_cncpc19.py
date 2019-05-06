@@ -1,17 +1,20 @@
 # coding: utf-8
 
 # 1.分词
+import sys
+reload(sys)
+sys.setdefaultencoding('utf-8')
 import jieba
-with open('report19.txt',encoding='utf-8') as f: ##当乱码时，选择编码方式
+with open('report19.txt',encoding='utf-8') as f: ##当乱码时，选择编码方式 python3
     s = f.read() ##把这个文件内容储存为一个字符串，readlines()则每行储存为列表中的一个元素，readline()每次只读取一行
-word_list = list(jieba.cut(s))
+word_list = list(jieba.cut(s))  ##jieba.lcut()直接返回列表，jieba.cut()返回字符串
 print('分词总数:', len(word_list))
 print('示例:', word_list[:20])
 
 # 2.统计词频
 from collections import Counter
 words_count = Counter(word_list)
-most_words = words_count.most_common(128)
+most_words = words_count.most_common(128) ##只显示词频排列前128的词
 print(most_words)
 
 # 去除符号和助词、介词等
@@ -33,16 +36,16 @@ bg_pic = imread('party.png')
 # 配置词云参数
 wc = WordCloud(
     # 因为中文显示，这里必须提供中文字体文件
-    font_path = 'zhaozi.ttf',
+    font_path = 'zhaozi.ttf', ##需要下载字体包
     # 设置背景色
     background_color='red',
     # 词云形状
-    mask=bg_pic,
+    mask=bg_pic, ##设置词云的排列形状
     # 最大号字体
     max_font_size=100,
 )
 # 生成词云
-wc.generate_from_frequencies(dict_words)
+wc.generate_from_frequencies(dict_words) ##按词频生成词云
 image_colors = ImageColorGenerator(bg_pic)
 wc.recolor(color_func=image_colors)
 
